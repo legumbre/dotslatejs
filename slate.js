@@ -1,7 +1,11 @@
 slate.log("loading .slate.js")
 
 slate.eachScreen(function (so) {
-    slate.log("screen id: " + so.id());
+    slate.log("s: " + so.id() +  " " + 
+              "x: " + so.rect().x +      " " + 
+              "y: " + so.rect().y +      " " + 
+              "w: " + so.rect().width +  " " + 
+              "h: " + so.rect().height + " " );
 });
 
 slate.configAll({
