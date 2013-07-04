@@ -109,12 +109,55 @@ var emacsRunOp = slate.operation("shell", {
     "path" : "~/"
 });
 
+function allScreens() {
+    var screens = new Array();
+    slate.eachScreen(function (so) { screens.push(so); });
+    return screens;
+}
+
+function screenInDirection(w, direction) {
+    var screens = allScreens();
+    var screensLeftToRight = _.sortBy(screens, function (s) { return   s.rect().x; });
+    var screensRightToLeft = _.sortBy(screens, function (s) { return - s.rect().x; });
+    var screensBottomToTop = _.sortBy(screens, function (s) { return   s.rect().y; });
+    var screensTopToBottom = _.sortBy(screens, function (s) { return - s.rect().y; });
+
+    switch (direction) {
+    case "left":
+        return _.find(screensRightToLeft, function (s) {return s.rect().x < w.screen().rect().x ;});
+    case "right":
+        return _.find(screensLeftToRight, function (s) {return s.rect().x > w.screen().rect().x ;});
+    case "up":
+        return _.find(screensBottomToTop, function (s) {return s.rect().y > w.screen().rect().y ;});
+    case "down":
+        return _.find(screensTopToBottom, function (s) {return s.rect().y < w.screen().rect().y ;});
+    }
+}
+
+function throwInDirection(w, direction) {
+    // direction is one of "left", "right", "up", "down"
+    var nextScreen = screenInDirection(w, direction);
+    slate.log("current screen: " + w.screen().id());
+    if (nextScreen) {
+        slate.log("next screen: " + nextScreen.id());
+        w.doOperation(slate.operation("throw", { screen: nextScreen }));
+    }
+    else {
+        slate.log("no more screens " + direction);
+    }
+}
+
 var t= function (obj) { return true; }; // convenience match-all filter
 
 slate.bind("r:a,alt", slate.operation("relaunch"));
 slate.bind("g:a,alt", grid);
 slate.bind("h:a,alt", slate.operation("hint"));
 slate.bind("`:a,alt", fullscreenOp);
+
+slate.bind("a:a,alt", function (w) { throwInDirection(w, "left"  ); });
+slate.bind("d:a,alt", function (w) { throwInDirection(w, "right" ); });
+slate.bind("w:a,alt", function (w) { throwInDirection(w, "up"    ); });
+slate.bind("s:a,alt", function (w) { throwInDirection(w, "down"  ); });
 
 /*
  * Run or raise applications
