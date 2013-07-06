@@ -119,8 +119,8 @@ function screenInDirection(w, direction) {
     var screens = allScreens();
     var screensLeftToRight = _.sortBy(screens, function (s) { return   s.rect().x; });
     var screensRightToLeft = _.sortBy(screens, function (s) { return - s.rect().x; });
-    var screensBottomToTop = _.sortBy(screens, function (s) { return   s.rect().y; });
-    var screensTopToBottom = _.sortBy(screens, function (s) { return - s.rect().y; });
+    var screensBottomToTop = _.sortBy(screens, function (s) { return - s.rect().y; });
+    var screensTopToBottom = _.sortBy(screens, function (s) { return   s.rect().y; });
 
     switch (direction) {
     case "left":
@@ -128,9 +128,9 @@ function screenInDirection(w, direction) {
     case "right":
         return _.find(screensLeftToRight, function (s) {return s.rect().x > w.screen().rect().x ;});
     case "up":
-        return _.find(screensBottomToTop, function (s) {return s.rect().y > w.screen().rect().y ;});
+        return _.find(screensBottomToTop, function (s) {return s.rect().y < w.screen().rect().y ;});
     case "down":
-        return _.find(screensTopToBottom, function (s) {return s.rect().y < w.screen().rect().y ;});
+        return _.find(screensTopToBottom, function (s) {return s.rect().y > w.screen().rect().y ;});
     }
 }
 
