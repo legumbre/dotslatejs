@@ -82,7 +82,7 @@ function runOrRaise(appName, winFilter, runOp)
     }
     else {
         slate.log("Running app " + appName);
-        runOp.run();
+        if (runOp) runOp.run();
     }
 }
 
