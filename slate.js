@@ -153,11 +153,23 @@ slate.bind("r:a,alt", slate.operation("relaunch"));
 slate.bind("g:a,alt", grid);
 slate.bind("h:a,alt", slate.operation("hint"));
 slate.bind("`:a,alt", fullscreenOp);
-
 slate.bind("a:a,alt", function (w) { throwInDirection(w, "left"  ); });
 slate.bind("d:a,alt", function (w) { throwInDirection(w, "right" ); });
 slate.bind("w:a,alt", function (w) { throwInDirection(w, "up"    ); });
 slate.bind("s:a,alt", function (w) { throwInDirection(w, "down"  ); });
+
+var leftHalf = { "x": "screenOriginX",
+                 "y": "screenOriginY",
+                 "width": "screenSizeX/2", 
+                 "height": "screenSizeY" };
+
+var rightHalf= { "x": "screenOriginX + screenSizeX/2",
+                 "y": "screenOriginY",
+                 "width": "screenSizeX/2", 
+                 "height": "screenSizeY" };
+
+slate.bind(",:a,alt", slate.operation("move", leftHalf));
+slate.bind(".:a,alt", slate.operation("move", rightHalf));
 
 /*
  * Run or raise applications
