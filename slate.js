@@ -176,7 +176,7 @@ slate.bind(".:a,alt", slate.operation("move", rightHalf));
  * =========================
  */
 slate.bind("f:a,alt", function (w) { runOrRaise("Firefox", t, firefoxRunOp); });
-slate.bind("c:a,alt", function (w) { runOrRaise("Terminal", t); });
+slate.bind("c:a,alt", function (w) { runOrRaise("iTerm", t); });
 slate.bind("e:a,alt", function (w) { 
     runOrRaise("Emacs", 
                // for some reason Emacs has two window objects per frame. One of
