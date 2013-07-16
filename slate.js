@@ -82,7 +82,12 @@ function runOrRaise(appName, winFilter, runOp)
     }
     else {
         slate.log("Running app " + appName);
-        if (runOp) runOp.run();
+        if (runOp) 
+            runOp.run();
+        else {
+            // use the default openApp operation 
+            openAppOperation(appName).run();
+        }
     }
 }
 
@@ -108,6 +113,14 @@ var emacsRunOp = slate.operation("shell", {
     "wait" : true,
     "path" : "~/"
 });
+
+function openAppOperation(appName) {
+    return slate.operation("shell", {    
+        "command" : "/usr/bin/open -a " + appName,
+        "wait" : false,
+        "path" : "~/"
+    });
+}
 
 function allScreens() {
     var screens = new Array();
