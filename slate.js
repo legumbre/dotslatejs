@@ -104,13 +104,13 @@ var fullscreenOp = slate.operation("move", {
 
 var firefoxRunOp = slate.operation("shell", {
     "command" : "/usr/bin/open -a Firefox --args --app /Users/leo/conkeror/application.ini",
-    "wait" : true,
+    "wait" : false,
     "path" : "~/"
 });
 
 var emacsRunOp = slate.operation("shell", {
     "command" : "/usr/bin/open -a Emacs",
-    "wait" : true,
+    "wait" : false,
     "path" : "~/"
 });
 
