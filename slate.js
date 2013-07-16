@@ -74,6 +74,7 @@ function runOrRaise(appName, winFilter, runOp)
          * to also require matching position and size but this seems to be good
          * enough for now.
          */
+        appWindows = _.sortBy(appWindows, function (w) { return w.title();});
         var windowFocused = _.find(appWindows, function (w) { return w.title() == slate.window().title(); } );
         var currentWinIdx = _.indexOf(appWindows, windowFocused);
         var nextWin = appWindows[( currentWinIdx + 1) % appWindows.length];
